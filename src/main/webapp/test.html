@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" ng-app="testApp">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Framework Test</title>
+	<!-- script data-main="js/main" src="lib/require/require.js"></script-->
+	
+</head>
+
+<body ng-controller="mainController" >
+
+<div>
+	<a href="#selfevaldocouln" class="btn">selfevaldocouln</a>
+	{{ttt}}
+</div>
+<br>
+<a href="#/view1">view1</a>
+<div ng-view></div>
+
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-route.js"></script>
+	<script type="text/javascript">
+		(function() {
+		var testApp = angular.module("testApp", ['ngRoute']);
+		
+		
+		testApp.config(['$routeProvider',
+		                  function($routeProvider) {
+		                    $routeProvider.
+		                      when('/view1', {
+		                        templateUrl: 'partials/selfevaldoc/selfevaldocouln.html',
+		                        controller: 'SelfEvalDocOulnCtrl'
+		                    });
+		                }]);
+		
+		
+		testApp.controller('mainController', function ($scope) {
+			$scope.ttt = "aaaaa";
+		});
+		
+		
+		
+		})();
+	</script>
+</body>
+
+</html>

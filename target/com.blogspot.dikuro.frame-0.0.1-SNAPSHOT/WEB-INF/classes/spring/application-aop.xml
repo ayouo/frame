@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	">
+
+	<!-- Advice -->
+	<bean id="beforeLogAdvice" class="com.blogspot.dikuro.frame.cmm.aop.MethodBeforeLogAdvice"/>
+	<bean id="afterLogAdvice" class="com.blogspot.dikuro.frame.cmm.aop.AfterReturningLogAdvice"/>
+	<bean id="interLogAdvice" class="com.blogspot.dikuro.frame.cmm.aop.MethodInterceptorLogAdvice"/>
+
+	<!-- PointCut -->
+	<bean id="testPointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value=".*test.*"/>
+	</bean>
+	
+	<!-- Advisor -->
+	<!-- 
+	<bean id="testAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="beforeLogAdvice"/>
+		<property name="pointcut" ref="testPointcut"/>
+	</bean>
+	 -->
+	<bean id="testAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="beforeLogAdvice"/>
+		<property name="pattern" value=".*test.*"/>
+	</bean>
+
+
+	<aop:config>
+		<aop:pointcut id="publicMethodPointCut" expression="execution(public * com.blogspot.dikuro.frame..*(..))"/>
+		<aop:advisor advice-ref="beforeLogAdvice" pointcut-ref="publicMethodPointCut"/>
+	</aop:config>
+	 
+</beans>
